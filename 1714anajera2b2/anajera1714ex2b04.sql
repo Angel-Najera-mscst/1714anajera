@@ -1,3 +1,4 @@
-SELECT        Rent, TOTOAL(*) AS Expr1
+SELECT        SUM(Rent) AS Expr1
 FROM            Apartment
-WHERE        (BuildingId = 1.)
+GROUP BY BuildingId
+HAVING        (BuildingId = 1)

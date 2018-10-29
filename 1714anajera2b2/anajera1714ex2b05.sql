@@ -1,3 +1,4 @@
-SELECT        Rent, LEAST(*) AS Expr1
+SELECT        MIN(Rent) AS Expr1
 FROM            Apartment
-WHERE        (BuildingId = 2)
+GROUP BY BuildingId
+HAVING        (BuildingId = 2)

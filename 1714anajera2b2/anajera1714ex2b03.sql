@@ -1,2 +1,3 @@
-SELECT        Rent, AVERAGE(*) AS Expr1
+SELECT        Average(Rent) AS Expr1
 FROM            Apartment
+GROUP BY Average(Rent)
