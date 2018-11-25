@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TennisModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TennisModelStoreContainer">
+    <EntitySet Name="People" EntityType="TennisModel.Store.People" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Locations" EntityType="TennisModel.Store.Locations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Matches" EntityType="TennisModel.Store.Matches" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Games" EntityType="TennisModel.Store.Games" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="LocationMatch" Association="TennisModel.Store.LocationMatch">
+      <End Role="Location" EntitySet="Locations" />
+      <End Role="Match" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="GameMatch" Association="TennisModel.Store.GameMatch">
+      <End Role="Game" EntitySet="Games" />
+      <End Role="Match" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="PersonMatch" Association="TennisModel.Store.PersonMatch">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Match" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="MatchPerson" Association="TennisModel.Store.MatchPerson">
+      <End Role="Match" EntitySet="Matches" />
+      <End Role="Person" EntitySet="People" />
+    </AssociationSet>
+    <AssociationSet Name="MatchPerson1" Association="TennisModel.Store.MatchPerson1">
+      <End Role="Match" EntitySet="Matches" />
+      <End Role="Person" EntitySet="People" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Matches1_Id" Type="int" Nullable="false" />
+    <Property Name="Matches2_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Locations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Matches">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartDateTime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Location_Id" Type="int" Nullable="false" />
+    <Property Name="Game_Id" Type="int" Nullable="false" />
+    <Property Name="Referee_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Games">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Player1Score" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Player2Score" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="LocationMatch">
+    <End Role="Location" Type="TennisModel.Store.Locations" Multiplicity="1" />
+    <End Role="Match" Type="TennisModel.Store.Matches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Match">
+        <PropertyRef Name="Location_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GameMatch">
+    <End Role="Game" Type="TennisModel.Store.Games" Multiplicity="1" />
+    <End Role="Match" Type="TennisModel.Store.Matches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Game">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Match">
+        <PropertyRef Name="Game_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonMatch">
+    <End Role="Person" Type="TennisModel.Store.People" Multiplicity="1" />
+    <End Role="Match" Type="TennisModel.Store.Matches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Match">
+        <PropertyRef Name="Referee_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MatchPerson">
+    <End Role="Match" Type="TennisModel.Store.Matches" Multiplicity="1" />
+    <End Role="Person" Type="TennisModel.Store.People" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Match">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="Matches1_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MatchPerson1">
+    <End Role="Match" Type="TennisModel.Store.Matches" Multiplicity="1" />
+    <End Role="Person" Type="TennisModel.Store.People" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Match">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="Matches2_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="TennisModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="TennisModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="People" EntityType="TennisModel.Person" />
+          <EntitySet Name="Locations" EntityType="TennisModel.Location" />
+          <EntitySet Name="Matches" EntityType="TennisModel.Match" />
+          <EntitySet Name="Games" EntityType="TennisModel.Game" />
+          <AssociationSet Name="LocationMatch" Association="TennisModel.LocationMatch">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="GameMatch" Association="TennisModel.GameMatch">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="PersonMatch" Association="TennisModel.PersonMatch">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="MatchPerson" Association="TennisModel.MatchPerson">
+            <End Role="Match" EntitySet="Matches" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="MatchPerson1" Association="TennisModel.MatchPerson1">
+            <End Role="Match" EntitySet="Matches" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Matches" Relationship="TennisModel.PersonMatch" FromRole="Person" ToRole="Match" />
+          <NavigationProperty Name="Matches1" Relationship="TennisModel.MatchPerson" FromRole="Person" ToRole="Match" />
+          <NavigationProperty Name="Matches2" Relationship="TennisModel.MatchPerson1" FromRole="Person" ToRole="Match" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" />
+          <NavigationProperty Name="Matches" Relationship="TennisModel.LocationMatch" FromRole="Location" ToRole="Match" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDateTime" Type="String" Nullable="false" />
+          <NavigationProperty Name="Location" Relationship="TennisModel.LocationMatch" FromRole="Match" ToRole="Location" />
+          <NavigationProperty Name="Game" Relationship="TennisModel.GameMatch" FromRole="Match" ToRole="Game" />
+          <NavigationProperty Name="Referee" Relationship="TennisModel.PersonMatch" FromRole="Match" ToRole="Person" />
+          <NavigationProperty Name="Player1Id" Relationship="TennisModel.MatchPerson" FromRole="Match" ToRole="Person" />
+          <NavigationProperty Name="Player2Id" Relationship="TennisModel.MatchPerson1" FromRole="Match" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Player1Score" Type="String" Nullable="false" />
+          <Property Name="Player2Score" Type="String" Nullable="false" />
+          <NavigationProperty Name="Matches" Relationship="TennisModel.GameMatch" FromRole="Game" ToRole="Match" />
+        </EntityType>
+        <Association Name="LocationMatch">
+          <End Type="TennisModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="TennisModel.Match" Role="Match" Multiplicity="*" />
+        </Association>
+        <Association Name="GameMatch">
+          <End Type="TennisModel.Game" Role="Game" Multiplicity="1" />
+          <End Type="TennisModel.Match" Role="Match" Multiplicity="*" />
+        </Association>
+        <Association Name="PersonMatch">
+          <End Type="TennisModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="TennisModel.Match" Role="Match" Multiplicity="*" />
+        </Association>
+        <Association Name="MatchPerson">
+          <End Type="TennisModel.Match" Role="Match" Multiplicity="1" />
+          <End Type="TennisModel.Person" Role="Person" Multiplicity="*" />
+        </Association>
+        <Association Name="MatchPerson1">
+          <End Type="TennisModel.Match" Role="Match" Multiplicity="1" />
+          <End Type="TennisModel.Person" Role="Person" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TennisModelStoreContainer" CdmEntityContainer="TennisModelContainer">
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="IsTypeOf(TennisModel.Person)">
+        <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="IsTypeOf(TennisModel.Location)">
+        <MappingFragment StoreEntitySet="Locations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Matches">
+      <EntityTypeMapping TypeName="IsTypeOf(TennisModel.Match)">
+        <MappingFragment StoreEntitySet="Matches">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Games">
+      <EntityTypeMapping TypeName="IsTypeOf(TennisModel.Game)">
+        <MappingFragment StoreEntitySet="Games">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Player1Score" ColumnName="Player1Score" />
+          <ScalarProperty Name="Player2Score" ColumnName="Player2Score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="LocationMatch" TypeName="TennisModel.LocationMatch" StoreEntitySet="Matches">
+      <EndProperty Name="Location">
+        <ScalarProperty Name="Id" ColumnName="Location_Id" />
+      </EndProperty>
+      <EndProperty Name="Match">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GameMatch" TypeName="TennisModel.GameMatch" StoreEntitySet="Matches">
+      <EndProperty Name="Game">
+        <ScalarProperty Name="Id" ColumnName="Game_Id" />
+      </EndProperty>
+      <EndProperty Name="Match">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonMatch" TypeName="TennisModel.PersonMatch" StoreEntitySet="Matches">
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Referee_Id" />
+      </EndProperty>
+      <EndProperty Name="Match">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MatchPerson" TypeName="TennisModel.MatchPerson" StoreEntitySet="People">
+      <EndProperty Name="Match">
+        <ScalarProperty Name="Id" ColumnName="Matches1_Id" />
+      </EndProperty>
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MatchPerson1" TypeName="TennisModel.MatchPerson1" StoreEntitySet="People">
+      <EndProperty Name="Match">
+        <ScalarProperty Name="Id" ColumnName="Matches2_Id" />
+      </EndProperty>
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
